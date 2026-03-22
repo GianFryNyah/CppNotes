@@ -18,4 +18,5 @@ int main(){
     std::cout << score << "%" << std::endl;
 
     return 0;
+    // test
 }
