@@ -32,5 +32,19 @@ int main(void){
     name.clear(); // it clears out name content
     std::cout << "If nothing appears, your name has been successfully cleared out: " << name << std::endl;
 
+    // cycling through characters
+    char nChoice;
+    char choice = 'z';
+    int size = 53;
+
+    size = size%26;
+    if(choice + size > 'z'){
+        nChoice = ((choice+size)%'z')+('a'-1);
+    }
+    else{nChoice = choice + size;}
+
+    std::cout << nChoice << ' ' << (int)'a' << ' ' << (int)'z' << std::endl;
+    // end
+    
     return 0;
 }
