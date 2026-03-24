@@ -26,7 +26,11 @@ int main(void){
     double radius = 10;
     // pi = 3.5; It will return an error
     double circumference = 2 * pi * radius;
+    
+    // auto acts as a placeholder for a type to be deduced
+    auto xyz = 72.2;
 
     std::cout << x << " - " << pi << std::endl;
+    std::cout << xyz << std::endl;
     return 0;
 }

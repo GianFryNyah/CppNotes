@@ -8,6 +8,7 @@
 
 typedef std::vector<std::pair<std::string, int>> pairlist_t;
 //typedef std::string text_t;
+typedef int esempio_t;
 using text_t = std::string;
 using number_t = int;
 
@@ -17,6 +18,9 @@ int main(void){
 
     text_t firstName = "Germano"; text_t lastName = "Mosconi";
     std::cout << firstName << ' ' << lastName << std::endl;
+
+    esempio_t esempio = 10;
+    std::cout << esempio << std::endl;
 
     return 0;
 }
