@@ -1,0 +1,2 @@
+
+    double gg = g(b);
