@@ -1,4 +1,5 @@
 // https://www.geeksforgeeks.org/dsa/cpp-program-to-print-all-permutations-of-a-given-string/
+// https://www.geeksforgeeks.org/dsa/write-a-c-program-to-print-all-permutations-of-a-given-string/
 
 #include <iostream>
 
