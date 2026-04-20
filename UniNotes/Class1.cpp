@@ -7,6 +7,7 @@ class Foo{
         Foo();
         Foo(const Foo& s);  // il copy constructor e' un costruttore in cui il parametro formale e' una const reference ad un oggetto della stessa classe che stiamo definendo
                             // construttore per copia
+        Foo(int a);
         ~Foo();
         void print();
         void set(int a);
@@ -15,7 +16,7 @@ class Foo{
         int* x;
 };
 
-Foo::Foo(){ // costruttore di default
+Foo::Foo(){ // costruttore di default, se non esplicitamente definito non fara nulla
     x = new int;
     *x = 0;
     std::cout << "Chiamato costruttore di default" << std::endl;
@@ -25,6 +26,12 @@ Foo::Foo(const Foo& s){ // costruttore per copia copy-constructor
     x = new int;
     *x = *(s.x);
     std::cout << "Copy constructor" << std::endl;
+}
+
+Foo::Foo(int a){ // costruttore alternativo, NON di default
+    x = new int;
+    *x = a;
+    std::cout << "Costruttore con parametro intero" << std::endl;
 }
 
 Foo::~Foo(){ // distruttore
@@ -45,12 +52,18 @@ void funzione(Foo& a){
 }
 
 Foo globale;
+
+Foo mia_funzione(const Foo& a){
+    return a;
+}
+
 int main(){
     std::cout << "Inizio del programma" << std::endl;
+/*
     //{
-    Foo myv1, myv2;
-    myv1.set(12); myv2.set(23);
-    myv1.print(); myv2.print();
+    Foo myv1;
+    myv1.set(12);
+    // myv1.print();
     //} // oppure qua, se presenti
 
     Foo myv3[7];
@@ -65,11 +78,24 @@ int main(){
 
     Foo myv1_copy(myv1);
 
+    Foo myv4 = 666; // Il compilatore cerca un costruttore che permetta l'assegnazione
+                    // abbiamo specificato questo costruttore a riga 46
+                    // e' un ASSEGNAMENTO, NON una inizializzazione
+
+    Foo myv5 = myv4; // Foo* y = new Foo(x); // copy constructor
+                     // Foo y(x); Fooy y{x};
+    
     std::cout << "Fine del programma" << std::endl;
 
     funzione(myv1_copy);
 
     delete pf; // chiama il distruttore di classe
+*/
+
+    Foo x = 12;
+    Foo y = mia_funzione(x);
+    
+    std::cout << "Fine del programma" << std::endl;
     return 0;
 } // i distruttori di default vengono chiamati esattamente qua'
 
