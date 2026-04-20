@@ -15,6 +15,7 @@ class List{
         void print() const; // const cosi' inserito specifica che questo metodo NON modifica lo stato della classe
 
         bool presente(int x) const; // controllo se esiste o non esiste un valore x dentro un oggetto di List
+        int stampa_posizione(int pos) const; // stampa l'elemento che si trova in posizione pos se esiste
     private:
         struct Cella{
             int data;
@@ -26,6 +27,7 @@ class List{
         void print_rec(Cella* pc) const;
         void append_rec(Cella*& l, int x);
         bool presente_rec(Cella* pc, int x) const;
+        int stampa_posizione_rec(Cella* pc, int pos, int tmp) const;
 };
 
 List::List(){
@@ -154,6 +156,42 @@ void stampaX2(const List& l){ // invocazione del copy constructor definito da no
     l.print();
 }
 
+int List::stampa_posizione(int pos) const{
+    /*
+    if(pos < 0){
+        std::cout << "Non puoi indicare valori negativi!" << std::endl;
+        return 0;
+    }
+    Cella* tmp = head;
+    int cnt = 0;
+    while(cnt!=pos && tmp!=nullptr){
+        tmp = tmp->next;
+        cnt++;
+    }
+    if(tmp == nullptr){
+        std::cout << "La cella indice " << pos << " non esiste!" << std::endl;
+        return 0;
+    }
+    return (tmp->data);
+    */
+   return stampa_posizione_rec(head, pos, 0);
+}
+
+int List::stampa_posizione_rec(Cella* pc, int pos, int tmp) const{
+    if(pos < 0){
+        std::cout << "Non puoi indicare valori negativi!" << std::endl;
+        return 0;
+    }
+    if(pc==nullptr){
+        std::cout << "La cella indice " << pos << " non esiste!" << std::endl;
+        return 0;
+    }
+    if(pos == tmp){
+        return pc->data;
+    }
+    return stampa_posizione_rec(pc->next, pos, tmp+1);
+}
+
 int main(){
     List l; // istanza della classe List, creiamo un oggetto l
 
@@ -166,6 +204,8 @@ int main(){
     l1.print();
 
     int x = 9;
+    int y = 11;
+
     if(l1.presente(x)){
         std::cout << x << " e' contenuto nella Lista l1" << std::endl;
     }
@@ -174,6 +214,7 @@ int main(){
     }
 
     stampaX2(l); // qua viene chiamato il copy constructor
+    std::cout << "La cella di indice " << y << " contiene il valore " << l1.stampa_posizione(y) << std::endl;
 
     return 0;
 }
