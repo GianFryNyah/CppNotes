@@ -14,6 +14,9 @@ class List{
 
         bool presente(int x) const; // controllo se esiste o non esiste un valore x dentro un oggetto di List
         int stampa_posizione(int pos) const; // stampa l'elemento che si trova in posizione pos se esiste
+
+        List operator+(const List& b) const;
+        List operator+(int b) const;
     private:
         struct Cella{
             int data;
@@ -22,6 +25,7 @@ class List{
 
         Cella* head; // Lo stato dell'oggetto lista sara' un puntatore alla testa della lista
 
+        void destructor();
         void print_rec(Cella* pc) const;
         void append_rec(Cella*& l, int x);
         bool presente_rec(Cella* pc, int x) const;
@@ -190,10 +194,44 @@ int List::stampa_posizione_rec(Cella* pc, int pos, int tmp) const{
     return stampa_posizione_rec(pc->next, pos, tmp+1);
 }
 
+void List::destructor(){
+    Cella* pc;
+     while(pc != nullptr){
+        pc = head;
+        head = head->next;
+        delete pc;
+     }
+}
+
+List List::operator+(const List& b) const{
+    List sum = *this; // chiamata al copy constructor
+    Cella* pc = b.head;
+    while(pc!=nullptr){
+        sum.append(pc->data);
+        pc = pc->next;
+    }
+    return sum;
+}
+
+List List::operator+(int b) const{
+    List sum = *this; // chiamata al copy constructor
+    sum.append(b);
+    return sum;
+}
+
 int main(){
     List a, b, c;
     // vorremmo poter fare a = b + c; e + dovrà concatenarci la lista a con la lista b, eliminando nel processo il vecchio contenuto della lista c ( ricordandoci di deallocarla se contiene elementi allocati dinamicamente )
     // questa operazione è definita OVERLOADING degli OPERATORI e ci permette di ridefinire il comportamento degli operatori su determinati tipi desiderati
-    
+    for(int i = 4; i >= 0; i--){
+        b.append(i);
+    }
+    b.print();
+    c = b + 5;
+    c.print();
+    b + c;
+    a.print();
     return 0;
 }
+
+// concatenazione liste, scorrimento
